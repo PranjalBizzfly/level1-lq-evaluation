@@ -6,10 +6,26 @@ import { useEffect } from "react";
 export default function Reveal() {
   useEffect(() => {
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    
+    // Immediately make visible elements that are already within or near the viewport
+    const checkImmediate = () => {
+      const vh = window.innerHeight;
+      els.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < vh + 150) {
+          el.classList.add("is-visible");
+        }
+      });
+    };
+
+    checkImmediate();
+    requestAnimationFrame(checkImmediate);
+
     if (!("IntersectionObserver" in window)) {
       els.forEach((el) => el.classList.add("is-visible"));
       return;
     }
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -19,10 +35,24 @@ export default function Reveal() {
           }
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+      { rootMargin: "250px 0px 150px 0px", threshold: 0.01 },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    els.forEach((el) => {
+      if (!el.classList.contains("is-visible")) {
+        io.observe(el);
+      }
+    });
+
+    // Safety fallback: ensure all elements are visible after a short delay
+    const fallbackTimer = setTimeout(() => {
+      els.forEach((el) => el.classList.add("is-visible"));
+    }, 700);
+
+    return () => {
+      io.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   return null;

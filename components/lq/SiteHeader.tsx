@@ -64,8 +64,10 @@ export default function SiteHeader() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b text-ink transition-[background-color,border-color,backdrop-filter] duration-500 ${
-          solid ? "border-line bg-paper/90 backdrop-blur-xl" : "border-transparent bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+          solid
+            ? "border-b border-line bg-paper/85 shadow-[0_16px_40px_-20px_color-mix(in_oklab,var(--color-ink)_12%,transparent)] backdrop-blur-2xl backdrop-saturate-150"
+            : "border-b border-transparent bg-transparent"
         }`}
       >
         <a
@@ -75,21 +77,27 @@ export default function SiteHeader() {
           Skip to content
         </a>
         <div
-          className={`container-x flex items-center justify-between gap-6 transition-[height] duration-300 ${
-            scrolled ? "h-14 sm:h-16" : "h-14 sm:h-[4.5rem] lg:h-20"
+          className={`container-x !px-4 sm:!px-6 lg:!px-8 xl:!px-14 flex items-center justify-between gap-3 lg:gap-4 xl:gap-6 transition-[height] duration-300 ${
+            scrolled ? "h-16 sm:h-20" : "h-18 sm:h-24"
           }`}
         >
-          <a href="#top" aria-label="Level141 — Back to top" className="relative z-10 flex min-h-11 shrink-0 items-center">
-            <Logo className="h-[1.15rem] w-auto sm:h-5" />
-          </a>
+          <div className="flex items-center gap-4 xl:gap-6 shrink-0">
+            <a href="#top" aria-label="Level141 — Back to top" className="relative z-10 flex min-h-11 shrink-0 items-center transition-opacity hover:opacity-85">
+              <Logo className="h-[1.2rem] w-auto sm:h-5" />
+            </a>
+            <div className="hidden xl:flex items-center gap-2 pl-4 border-l border-line text-[0.68rem] tracking-[0.2em] uppercase font-medium text-muted">
+              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+              <span>Complimentary LQ™ Evaluation Open</span>
+            </div>
+          </div>
 
           <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-0.5 2xl:gap-1">
+            <ul className="flex items-center gap-0.5 xl:gap-2 rounded-full border border-line/60 bg-paper/50 px-2 py-1 xl:px-3 xl:py-1.5 shadow-xs backdrop-blur-md">
               {PRIMARY_NAV.map((n) => (
                 <li key={n.href}>
                   <a
                     href={n.href}
-                    className="block whitespace-nowrap px-2 py-2 text-[0.85rem] text-ink hover:text-ink 2xl:px-3.5 2xl:text-[0.9rem]"
+                    className="relative block whitespace-nowrap rounded-full px-2.5 py-1 text-xs xl:px-3.5 xl:py-1.5 xl:text-[0.825rem] font-medium tracking-tight text-ink/80 transition-colors duration-200 hover:bg-ink/5 hover:text-ink active:scale-95"
                   >
                     {n.label}
                   </a>
@@ -98,12 +106,13 @@ export default function SiteHeader() {
             </ul>
           </nav>
 
-          <div className="relative z-10 flex items-center gap-3">
+          <div className="relative z-10 flex shrink-0 items-center gap-2 xl:gap-3">
             <a
               href="#register"
-              className={`${BTN} ${BTN_ON_LIGHT} hidden min-h-11 px-5 sm:inline-flex`}
+              data-magnetic
+              className={`${BTN} ${BTN_ON_LIGHT} hidden h-11 px-4 xl:px-5 shadow-sm transition-all duration-300 hover:shadow-md sm:inline-flex shrink-0 whitespace-nowrap`}
             >
-              <span>Discover My LQ™</span>
+              <span className="text-sm whitespace-nowrap">Discover My LQ™</span>
               <Arrow />
             </a>
             <ThemeToggle />
@@ -114,7 +123,7 @@ export default function SiteHeader() {
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((o) => !o)}
-              className="grid size-11 place-items-center border border-ink/20 hover:border-ink lg:hidden"
+              className="glass grid size-11 place-items-center rounded-full transition-transform duration-200 active:scale-90 lg:hidden"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="size-5" aria-hidden="true">
                 {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}

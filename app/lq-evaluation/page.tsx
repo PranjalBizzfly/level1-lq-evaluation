@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import Effects from "@/components/Effects";
 import SiteHeader from "@/components/lq/SiteHeader";
 import SiteFooter from "@/components/lq/SiteFooter";
 import MobileCtaBar from "@/components/lq/MobileCtaBar";
+import ScrollToTop from "@/components/ScrollToTop";
 import Hero from "@/components/lq/Hero";
 import RealQuestion from "@/components/lq/RealQuestion";
 import IntroducingLq from "@/components/lq/IntroducingLq";
@@ -48,7 +50,9 @@ export default function LqEvaluationPage() {
       </main>
       <SiteFooter />
       <MobileCtaBar />
+      <ScrollToTop />
       <Reveal />
+      <Effects />
     </>
   );
 }

@@ -1,107 +1,128 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { VIBE } from "@/content/lq";
-import { Accent, Cta, Section, SectionHead } from "@/components/ui";
+import { Accent, Corner, Cta, Section, SectionHead } from "@/components/ui";
 
 // SECTION 4 — WHAT WE EVALUATE
 export default function Vibe() {
-  const [active, setActive] = useState(0);
-  const refs = useRef<(HTMLElement | null)[]>([]);
+  const [active, setActive] = useState<number | null>(null);
 
-  // The dimension crossing the middle of the viewport is the active one.
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.index));
-        }
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
-    refs.current.forEach((el) => el && io.observe(el));
-    return () => io.disconnect();
-  }, []);
+  const scrollToDimension = (index: number) => {
+    setActive(index);
+    const el = document.getElementById(`vibe-${VIBE[index].letter.toLowerCase()}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <Section id="vibe" labelledBy="vibe-title" className="border-t border-line">
       <SectionHead n={4}>What We Evaluate</SectionHead>
 
-      <div data-reveal className="mt-20 grid gap-y-8 lg:mt-32 lg:grid-cols-12 lg:items-start lg:gap-x-10">
-        <h2 id="vibe-title" className="headline text-[2.25rem] sm:text-5xl lg:col-span-8 lg:text-[3.75rem]">
+      <div data-reveal className="mt-8 grid gap-y-10 lg:grid-cols-12 lg:items-start lg:gap-x-16">
+        <h2 id="vibe-title" className="headline text-[2.5rem] leading-[1.08] sm:text-5xl lg:col-span-8 lg:text-[4rem]">
           <span className="block">Your Personal Brand</span> <Accent>Four Essential Dimensions</Accent>
         </h2>
-        <p className="text-lg leading-[1.85] lg:col-span-4 lg:col-start-9">
-          The LQ™ Evaluation is built around <strong className="font-semibold">VIBE™</strong>, Level141&apos;s approach to
-          Personal Brand Architecture.
-        </p>
+        <div className="lg:col-span-4 lg:pt-3">
+          <p className="text-lg sm:text-xl lg:text-2xl leading-[1.8] font-light text-muted">
+            The LQ™ Evaluation is built around <strong className="font-medium text-ink">VIBE™</strong>, Level141&apos;s approach to
+            Personal Brand Architecture.
+          </p>
+        </div>
       </div>
 
-      <div className="mt-24 lg:mt-36 lg:grid lg:grid-cols-12 lg:gap-x-10">
-        {/* Sticky index: the letter of the dimension in view turns solid. */}
-        <nav aria-label="VIBE™ dimensions" className="hidden lg:col-span-4 lg:block">
-          <ol className="sticky top-32 space-y-2">
-            {VIBE.map((d, i) => (
-              <li key={d.letter}>
-                <a
-                  href={`#vibe-${d.letter.toLowerCase()}`}
-                  aria-current={active === i ? "true" : undefined}
-                  className="group flex items-baseline gap-6"
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`headline text-[7.5rem] leading-[0.95] transition-all duration-700 xl:text-[8.5rem] ${
-                      active === i ? "" : "text-outline group-hover:[--outline:var(--color-ink)]"
-                    }`}
-                  >
-                    {d.letter}
-                  </span>
-                  <span
-                    className={`eyebrow transition-opacity duration-700 ${active === i ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-                  >
-                    {d.name}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+      {/* Quick Dimension Focus Bar */}
+      <div data-reveal className="mt-16 sm:mt-24">
+        <div className="flex items-center justify-between pb-4 border-b border-line">
+          <p className="eyebrow text-ink/80">VIBE™ Architecture Pillars</p>
+          <span className="text-xs font-mono text-muted tracking-widest uppercase hidden sm:inline-block">
+            All 4 Steps Evaluated
+          </span>
+        </div>
 
-        {/* Dimensions scroll past on the right. */}
-        <ol className="border-t border-line-strong lg:col-span-7 lg:col-start-6">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
           {VIBE.map((d, i) => (
-            <li
+            <button
+              key={d.letter}
+              type="button"
+              onClick={() => scrollToDimension(i)}
+              className={`flex items-center gap-4 rounded-2xl border p-5 sm:p-6 text-left transition-all duration-300 ${
+                active === i
+                  ? "border-ink bg-ink text-paper shadow-xl scale-[1.02]"
+                  : "border-line bg-paper/60 text-ink hover:border-line-strong hover:bg-paper hover:shadow-sm"
+              }`}
+            >
+              <span className={`serif-accent text-3xl sm:text-4xl font-normal ${active === i ? "text-paper" : "text-ink"}`}>
+                {d.letter}
+              </span>
+              <div className="truncate">
+                <span className="block text-xs uppercase tracking-wider font-semibold truncate">
+                  {d.name}
+                </span>
+                <span className={`text-[0.72rem] font-mono ${active === i ? "text-paper/70" : "text-muted"}`}>
+                  Step 0{i + 1}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Fully Visible 4-Step Executive Matrix — Nothing is hidden */}
+      <div className="mt-16 sm:mt-20 grid gap-8 sm:grid-cols-2 lg:gap-10 xl:gap-12">
+        {VIBE.map((d, i) => {
+          const isFocused = active === i;
+          return (
+            <div
               key={d.letter}
               id={`vibe-${d.letter.toLowerCase()}`}
-              data-index={i}
-              ref={(el) => {
-                refs.current[i] = el;
-              }}
-              className="border-b border-line-strong py-14 sm:py-20 lg:py-28"
+              data-spotlight
+              onMouseEnter={() => setActive(i)}
+              className={`surface card-interactive group relative rounded-3xl border p-8 sm:p-12 lg:p-14 flex flex-col justify-between transition-all duration-500 shadow-sm ${
+                isFocused
+                  ? "border-ink/80 shadow-2xl ring-2 ring-ink/20"
+                  : "border-line hover:border-ink/50"
+              }`}
             >
-              <div data-reveal>
-                <div className="flex items-baseline gap-5">
-                  <span aria-hidden="true" className="headline text-6xl leading-none lg:hidden">
-                    {d.letter}
-                  </span>
-                  <h3 className="eyebrow">
-                    0{i + 1} — {d.name}
-                  </h3>
+              <Corner className="absolute -top-px -right-px size-8 text-ink/60 sm:size-10" />
+
+              <div>
+                {/* Header row */}
+                <div className="flex items-center justify-between border-b border-line pb-6">
+                  <div className="flex items-center gap-4">
+                    <span className="grid size-14 place-items-center rounded-2xl bg-ink font-serif italic text-2xl text-paper shadow-sm">
+                      {d.letter}
+                    </span>
+                    <div>
+                      <h3 className="eyebrow text-ink">
+                        0{i + 1} — {d.name}
+                      </h3>
+                      <p className="text-xs text-muted font-mono tracking-wider mt-0.5">Evaluation Dimension</p>
+                    </div>
+                  </div>
+                  <span className="luxury-pill">Core Pillar</span>
                 </div>
-                <p className="headline mt-6 text-3xl sm:text-4xl lg:text-[2.75rem]">{d.question}</p>
-                <div className="mt-8 max-w-xl space-y-5 text-lg leading-[1.85]">
-                  {d.body.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
-                </div>
+
+                {/* Question */}
+                <p className="headline mt-8 text-2xl sm:text-3xl text-ink font-light leading-snug group-hover:translate-x-1 transition-transform duration-300">
+                  {d.question}
+                </p>
               </div>
-            </li>
-          ))}
-        </ol>
+
+              {/* Body paragraphs */}
+              <div className="mt-10 pt-6 border-t border-line/60 space-y-4 text-base sm:text-lg leading-[1.85]">
+                {d.body.map((p) => (
+                  <p key={p} className="text-muted last:text-ink">
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      <div data-reveal className="mt-16 lg:mt-24">
-        <Cta label="Start My LQ™ Evaluation →" />
+      <div data-reveal className="mt-20 lg:mt-32 flex justify-center">
+        <Cta label="Start My LQ™ Evaluation →" className="shadow-lg" />
       </div>
     </Section>
   );

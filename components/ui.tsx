@@ -70,27 +70,28 @@ type CtaProps = {
 
 /** Shared button shape; pair with a colour from BTN_ON_LIGHT / BTN_ON_DARK. */
 export const BTN =
-  "btn group items-center justify-between gap-4 text-left text-[0.72rem] font-medium uppercase tracking-[0.12em] sm:justify-center sm:text-center sm:text-[0.78rem] sm:tracking-[0.16em]";
-export const BTN_ON_LIGHT = "border border-ink bg-ink text-paper hover:text-ink [--btn-sweep:var(--color-paper)]";
-export const BTN_ON_DARK = "border border-paper bg-paper text-ink hover:text-paper [--btn-sweep:var(--color-ink)]";
+  "group items-center justify-center gap-3 rounded-full text-center text-[0.95rem] font-medium tracking-[-0.005em]";
+export const BTN_ON_LIGHT = "btn-solid bg-ink text-paper hover:bg-ink-3";
+export const BTN_ON_DARK = "btn-solid bg-paper text-ink hover:bg-paper-2";
 
 const CTA_STYLES = {
   light: {
     primary: BTN_ON_LIGHT,
-    secondary: "border border-ink text-ink hover:text-paper [--btn-sweep:var(--color-ink)]",
+    secondary: "glass btn-sheen text-ink",
   },
   dark: {
     primary: BTN_ON_DARK,
-    secondary: "border border-paper text-paper hover:text-ink [--btn-sweep:var(--color-paper)]",
+    secondary: "glass btn-sheen text-ink",
   },
 };
 
-/** Square CTA that inverts on hover. A trailing "→" in `label` is rendered as an animated arrow. */
+/** Pill CTA matching the live site, with a magnetic pull toward the cursor. A trailing "→" becomes an animated arrow. */
 export function Cta({ label, href = CTA_TARGET, tone = "light", variant = "primary", className = "" }: CtaProps) {
   return (
     <a
       href={href}
-      className={`${BTN} inline-flex min-h-14 px-5 sm:px-7 sm:whitespace-nowrap ${CTA_STYLES[tone][variant]} ${className}`}
+      data-magnetic
+      className={`${BTN} inline-flex min-h-12 px-6 sm:whitespace-nowrap ${CTA_STYLES[tone][variant]} ${className}`}
     >
       <span>{label.replace(/\s*→$/, "")}</span>
       <Arrow />
@@ -132,29 +133,29 @@ const TONES = {
   ink: "bg-ink text-paper [--outline:var(--color-paper)]",
 };
 
-/** Page section with the shared vertical rhythm. `ink` renders an inverted band. */
+/** Page section with generous architectural vertical rhythm so every chapter has its own room. */
 export function Section({ id, labelledBy, tone = "paper", children, className = "" }: SectionProps) {
   return (
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={`relative py-28 sm:py-40 lg:py-56 ${TONES[tone]} ${className}`}
+      className={`relative py-32 sm:py-44 lg:py-52 ${TONES[tone]} ${className}`}
     >
       <div className="container-x">{children}</div>
     </section>
   );
 }
 
-/** Editorial section header: "N° 02 — Label" over a hairline. */
+/** Section label as on the live site: "02 —— Label", with the short rule drawing in on reveal. */
 export function SectionHead({ n, children }: { n: number; children: ReactNode }) {
-  const num = String(n).padStart(2, "0");
   return (
-    <div data-reveal className="rule-draw eyebrow flex items-baseline justify-between gap-6 pb-4">
-      <p>
-        <span aria-hidden="true">N° {num} — </span>
-        {children}
-      </p>
-    </div>
+    <p data-reveal className="eyebrow flex items-center gap-3">
+      <span aria-hidden="true" className="tabular-nums">
+        {String(n).padStart(2, "0")}
+      </span>
+      <span aria-hidden="true" className="rule-draw h-px w-8 bg-current opacity-50" />
+      <span>{children}</span>
+    </p>
   );
 }
 

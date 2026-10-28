@@ -1,65 +1,93 @@
-import { PRIMARY_NAV } from "@/lib/site";
-import { Arrow, Corner, Cta, Logo } from "@/components/ui";
+import { Corner, Cta, Logo } from "@/components/ui";
 
-// Standalone footer; every link stays on this page.
+// Footer mirroring the live Level141 site; every link stays on this standalone page.
+const COLUMNS = [
+  {
+    title: "Explore",
+    links: [
+      { href: "#introducing-lq", label: "About LQ™" },
+      { href: "#what-you-receive", label: "What You Receive" },
+      { href: "#who-is-it-for", label: "Who It's For" },
+      { href: "#how-it-works", label: "How It Works" },
+      { href: "#the-bigger-picture", label: "Engagements" },
+    ],
+  },
+  {
+    title: "Frameworks",
+    links: [
+      { href: "#introducing-lq", label: "LQ™", sub: "Level Quotient" },
+      { href: "#vibe", label: "VIBE™", sub: "Vision, Impact, Business Growth, Evolution" },
+    ],
+  },
+  {
+    title: "Start Your Next Level",
+    links: [{ href: "#register", label: "Evaluation Registration" }],
+  },
+];
+
 export default function SiteFooter() {
   return (
-    <footer aria-labelledby="footer-heading">
+    <footer aria-labelledby="footer-heading" className="relative isolate overflow-hidden bg-paper-2 p-2 sm:p-3 lg:p-4">
       <h2 id="footer-heading" className="sr-only">
         Site footer
       </h2>
-      <div className="relative overflow-hidden border-t border-line bg-paper text-ink">
-                        <div className="container-x relative pb-8 pt-16 sm:pb-10 sm:pt-20 lg:pt-28">
-          <Corner className="absolute right-5 top-8 size-6 text-ink sm:right-8 sm:top-10 lg:right-14" />
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-8">
-              <Logo className="h-5 w-auto" />
-              <p className="eyebrow mt-4 text-ink">Personal Brand Architecture™</p>
-              <p className="headline mt-10 text-[2.25rem] sm:text-5xl lg:text-[3.5rem]">
-                <span className="block">Your Next Level</span> <span className="serif-accent">Architected</span>
-              </p>
-            </div>
+
+      <div data-reveal className="surface relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem]">
+        <div className="relative px-6 pb-8 pt-10 sm:px-12 sm:pb-10 sm:pt-14 lg:px-20 lg:pt-16">
+          {/* Statement and call to action. */}
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <p className="headline text-[2.15rem] leading-[1.03] sm:text-5xl lg:col-span-8 lg:text-[3.6rem]">
+              Growth Architecture For <span className="serif-accent">People &amp; Organizations</span>
+            </p>
             <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
-              <Cta label="Discover My LQ™ →" href="#register" />
-              <p className="text-sm text-ink lg:text-right">
-                Level141 — Growth By Design.
-                <br />
+              <Cta label="Discover My LQ™ →" />
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Level141 — Growth By Design.</p>
+            </div>
+          </div>
+
+          {/* Divider held between two corner marks; the line draws in on reveal. */}
+          <div aria-hidden="true" className="mt-12 flex items-center gap-4 sm:mt-14">
+            <Corner flip className="size-3.5 shrink-0 text-ink" />
+            <span className="rule-draw h-px flex-1 bg-line" />
+            <Corner className="size-3.5 shrink-0 text-ink" />
+          </div>
+
+          <div className="mt-12 grid gap-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-12 lg:gap-8">
+            <div className="sm:col-span-2 lg:col-span-3">
+              <a href="#top" aria-label="Level141 — Back to top" className="inline-flex min-h-11 items-center">
+                <Logo className="h-5 w-auto" />
+              </a>
+              <p className="mt-5 max-w-xs leading-relaxed text-muted">
                 Part of the 1XL ecosystem, headquartered in Dubai.
               </p>
-            </div>
-          </div>
-
-          <div className="mt-16 grid gap-10 border-t border-line pt-12 sm:grid-cols-2 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <p className="max-w-xs text-lg font-light leading-snug tracking-[-0.01em] text-ink">
-                Growth Architecture For <span className="serif-accent">People &amp; Organizations</span>
+              <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-paper/50 px-3 py-1.5 text-sm">
+                <span aria-hidden="true" className="size-1.5 rounded-full bg-ink" />
+                Dubai
               </p>
             </div>
-            <nav aria-label="Footer" className="lg:col-span-8">
-              <p className="eyebrow text-ink">On This Page</p>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {PRIMARY_NAV.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} className="inline-block text-sm text-ink hover:text-ink">
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-                <li>
-                  <a href="#register" className="inline-block text-sm text-ink hover:text-ink">
-                    Evaluation Registration
-                  </a>
-                </li>
-              </ul>
-            </nav>
+
+            {COLUMNS.map((col) => (
+              <nav key={col.title} aria-label={col.title} className="lg:col-span-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{col.title}</p>
+                <ul className="mt-4">
+                  {col.links.map((l) => (
+                    <li key={l.label}>
+                      <a href={l.href} className="group flex min-h-11 flex-col justify-center py-1.5 text-[1.02rem] leading-snug">
+                        {/* Underline grows from the left on hover, as on the live site. */}
+                        <span className="w-fit bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 ease-[var(--ease-architect)] group-hover:bg-[length:100%_1px]">
+                          {l.label}
+                        </span>
+                        {"sub" in l && l.sub && <span className="mt-0.5 text-sm text-muted">{l.sub}</span>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
           </div>
 
-          <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 text-xs text-ink sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-14 border-t border-line pt-6 text-sm text-muted">
             <p>© {new Date().getFullYear()} Level141. All rights reserved.</p>
-            <a href="#top" className="group inline-flex items-center gap-2 hover:text-ink">
-              Back to top
-              <Arrow className="-rotate-90 group-hover:translate-x-0 group-hover:-translate-y-0.5" />
-            </a>
           </div>
         </div>
       </div>

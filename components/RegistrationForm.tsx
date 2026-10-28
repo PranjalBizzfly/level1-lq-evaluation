@@ -100,50 +100,34 @@ export default function RegistrationForm() {
   const submitting = status.state === "submitting";
   const found = validateLq(values);
   const isDone = (name: keyof LqFields) => Boolean(values[name]) && !found[name];
-  const done = REQUIRED.filter(isDone).length;
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby="privacy-note" className="space-y-16">
+    <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby="privacy-note" className="space-y-12">
       {status.state === "error" && (
         <div
           ref={statusRef}
           tabIndex={-1}
           role="alert"
-          className="flex items-start gap-3 border-2 border-error bg-paper px-5 py-4 text-sm font-medium text-error"
+          className="flex items-start gap-3 rounded-2xl border-2 border-error bg-surface px-5 py-4 text-sm font-medium text-error"
         >
           <ErrorMark />
           <span>{status.message}</span>
         </div>
       )}
 
-      {/* Progress: required fields completed so far. */}
-      <div>
-        <div className="flex items-baseline justify-between gap-6">
-          <p className="text-xs">
-            Fields marked <span aria-hidden="true">*</span>
-            <span className="sr-only">with an asterisk</span> are required.
-          </p>
-          <p className="eyebrow tabular-nums" aria-live="polite">
-            {done} / {REQUIRED.length}
-            <span className="sr-only"> required fields complete</span>
-          </p>
-        </div>
-        <div aria-hidden="true" className="mt-4 h-px bg-line-strong">
-          <div
-            className="h-px origin-left bg-ink transition-transform duration-700 ease-[var(--ease-architect)]"
-            style={{ transform: `scaleX(${done / REQUIRED.length})` }}
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         {TEXT_FIELDS.map((f) => {
           const err = errors[f.name];
           const id = `lq-${f.name}`;
           const ok = isDone(f.name) && !err;
           return (
             <div key={f.name}>
-              <div className="relative pt-6">
+              {/* Soft luxury input box: label floats inside, ring glows while focused */}
+              <div
+                className={`relative rounded-2xl border bg-paper/70 transition-[border-color,box-shadow,background-color] duration-300 focus-within:border-ink focus-within:bg-paper focus-within:shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-ink)_8%,transparent)] dark:bg-white/[0.03] ${
+                  err ? "border-2 border-error" : ok ? "border-line-strong" : "border-line hover:border-line-strong"
+                }`}
+              >
                 <input
                   id={id}
                   name={f.name}
@@ -159,32 +143,26 @@ export default function RegistrationForm() {
                   onBlur={() => onBlur(f.name)}
                   maxLength={500}
                   placeholder=" "
-                  className={`peer block min-h-12 w-full border-0 border-b bg-transparent py-2 pr-8 text-lg outline-none focus-visible:outline-none ${
-                    err ? "border-b-2 border-error" : "border-line-strong"
-                  }`}
+                  className="peer block min-h-16 w-full rounded-2xl bg-transparent px-5 pb-2.5 pt-7 pr-12 text-base outline-none focus-visible:outline-none"
                 />
-                {/* Floating label: sits in the field, lifts on focus or once filled. */}
                 <label
                   htmlFor={id}
-                  className="pointer-events-none absolute left-0 top-8 origin-left text-lg transition-all duration-300 peer-focus:top-0 peer-focus:text-[0.7rem] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-[0.2em] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.2em]"
+                  className="pointer-events-none absolute left-5 top-5 origin-left text-sm text-muted transition-all duration-300 peer-focus:top-2.5 peer-focus:text-[0.68rem] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-ink peer-[:not(:placeholder-shown)]:top-2.5 peer-[:not(:placeholder-shown)]:text-[0.68rem] peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]"
                 >
                   {f.label}
-                  {f.required && <span aria-hidden="true"> *</span>}
+                  {f.required && <span aria-hidden="true" className="text-ink"> *</span>}
                 </label>
-                {/* Underline that draws across while the field has focus. */}
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-ink transition-transform duration-500 peer-focus:scale-x-100"
-                />
-                <span
-                  aria-hidden="true"
-                  className={`pointer-events-none absolute bottom-3 right-0 text-sm transition-opacity duration-300 ${ok ? "opacity-100" : "opacity-0"}`}
+                  className={`btn-solid pointer-events-none absolute right-4 top-1/2 grid size-6 -translate-y-1/2 place-items-center rounded-full bg-ink text-[0.7rem] text-paper transition-all duration-300 ${
+                    ok ? "scale-100 opacity-100" : "scale-50 opacity-0"
+                  }`}
                 >
                   ✓
                 </span>
               </div>
               {err && (
-                <p id={`${id}-error`} className="mt-3 flex items-center gap-2 text-sm font-medium text-error">
+                <p id={`${id}-error`} className="mt-2 flex items-center gap-2 px-1 text-sm font-medium text-error">
                   <ErrorMark />
                   {err}
                 </p>
@@ -194,47 +172,54 @@ export default function RegistrationForm() {
         })}
       </div>
 
-      <fieldset aria-describedby={errors.goal ? "lq-goal-error" : undefined}>
-        <legend className="headline text-2xl sm:text-3xl">
+      <fieldset aria-describedby={errors.goal ? "lq-goal-error" : undefined} className="pt-8">
+        <legend className="headline text-2xl sm:text-3xl text-ink font-light leading-snug">
           What would you most like to achieve through your personal brand?
         </legend>
-        <p className="mt-3 text-sm">Select your primary goal:</p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <p className="mt-3 text-sm sm:text-base text-muted">Select your primary goal:</p>
+        
+        {/* Goal selection cards */}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {GOALS.map((g, i) => {
             const id = `lq-goal-${i}`;
+            const selected = values.goal === g;
             return (
               <label
                 key={g}
                 htmlFor={id}
-                className="group/goal flex min-h-16 cursor-pointer items-center gap-4 border border-line-strong px-5 py-4 text-[0.95rem] transition-all duration-300 hover:-translate-y-0.5 hover:border-ink has-checked:border-ink has-checked:font-medium has-checked:shadow-[inset_0_0_0_1px_var(--color-ink)] has-focus-visible:outline-2 has-focus-visible:outline-offset-3 has-focus-visible:outline-ink"
+                data-magnetic
+                className={`surface card-interactive group/goal flex min-h-18 cursor-pointer items-center gap-4 rounded-2xl border p-5 text-[0.95rem] leading-snug transition-all duration-300 ${
+                  selected
+                    ? "border-ink bg-paper shadow-md font-medium text-ink"
+                    : "border-line text-ink/80 hover:border-line-strong hover:bg-paper/80"
+                }`}
               >
                 <input
                   id={id}
                   type="radio"
                   name="goal"
                   value={g}
-                  checked={values.goal === g}
+                  checked={selected}
                   onChange={() => set("goal", g)}
                   className="sr-only"
                 />
-                <span aria-hidden="true" className="eyebrow w-6 shrink-0 tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="flex-1">{g}</span>
                 <span
                   aria-hidden="true"
-                  className="grid size-5 shrink-0 place-items-center border border-current text-[0.7rem] transition-transform duration-300 group-has-checked/goal:scale-110"
+                  className={`grid size-9 shrink-0 place-items-center rounded-xl border text-[0.75rem] font-mono transition-all duration-300 ${
+                    selected
+                      ? "border-ink bg-ink text-paper font-bold shadow-xs"
+                      : "border-line bg-paper/60 text-muted group-hover/goal:border-ink/50"
+                  }`}
                 >
-                  <span className="opacity-0 transition-opacity duration-300 group-has-checked/goal:opacity-100">
-                    ✓
-                  </span>
+                  {selected ? "✓" : String(i + 1).padStart(2, "0")}
                 </span>
+                <span className="flex-1">{g}</span>
               </label>
             );
           })}
         </div>
         {errors.goal && (
-          <p id="lq-goal-error" className="mt-3 flex items-center gap-2 text-sm font-medium text-error">
+          <p id="lq-goal-error" className="mt-3 flex items-center gap-2 px-1 text-sm font-medium text-error">
             <ErrorMark />
             {errors.goal}
           </p>
@@ -247,19 +232,20 @@ export default function RegistrationForm() {
         <input id="lq-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="flex flex-col gap-8 border-t border-line pt-10">
+      <div className="flex flex-col gap-6 border-t border-line pt-10">
         <button
           type="submit"
           disabled={submitting}
           aria-busy={submitting}
-          className={`${BTN} ${BTN_ON_LIGHT} inline-flex min-h-16 w-full px-8 disabled:cursor-wait disabled:opacity-60`}
+          data-magnetic
+          className={`${BTN} ${BTN_ON_LIGHT} inline-flex min-h-14 w-full px-8 text-base shadow-lg hover:shadow-xl disabled:cursor-wait disabled:opacity-60`}
         >
           <span>{submitting ? "Submitting…" : "Begin My Evaluation"}</span>
           <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
             →
           </span>
         </button>
-        <p id="privacy-note" className="text-center text-xs italic leading-[1.85]">
+        <p id="privacy-note" className="text-center text-xs italic leading-[1.85] text-muted">
           Your information will be used to provide your evaluation and related communications in accordance with our
           privacy policy. You may opt out of marketing communications at any time.
         </p>
@@ -268,13 +254,11 @@ export default function RegistrationForm() {
   );
 }
 
-const REQUIRED: (keyof LqFields)[] = ["fullName", "title", "company", "email", "goal"];
-
 function ErrorMark() {
   return (
     <span
       aria-hidden="true"
-      className="grid size-4 shrink-0 place-items-center border border-current text-[0.6rem] font-bold"
+      className="grid size-4 shrink-0 place-items-center rounded-full border border-current text-[0.6rem] font-bold"
     >
       !
     </span>

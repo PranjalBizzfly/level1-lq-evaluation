@@ -36,15 +36,15 @@ export default function MobileCtaBar() {
   return (
     <div
       aria-hidden={!show}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 p-3 backdrop-blur-xl transition-transform duration-500 sm:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/90 p-3.5 backdrop-blur-2xl shadow-[0_-12px_32px_-10px_color-mix(in_oklab,var(--color-ink)_16%,transparent)] transition-transform duration-500 sm:hidden ${
         show ? "translate-y-0" : "pointer-events-none translate-y-full"
       }`}
-      style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+      style={{ paddingBottom: "max(0.875rem, env(safe-area-inset-bottom))" }}
     >
       <a
         href="#register"
         tabIndex={show ? 0 : -1}
-        className={`${BTN} ${BTN_ON_LIGHT} flex min-h-12 w-full px-6`}
+        className={`${BTN} ${BTN_ON_LIGHT} flex min-h-12 w-full px-6 shadow-md`}
       >
         <span>Discover My LQ™</span>
         <Arrow />

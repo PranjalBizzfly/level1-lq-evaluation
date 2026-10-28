@@ -37,7 +37,8 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       onClick={toggle}
       aria-label="Toggle light and dark theme"
       title="Toggle light and dark theme"
-      className={`grid size-11 place-items-center border border-ink/20 hover:border-ink ${className}`}
+      data-magnetic
+      className={`glass grid size-11 place-items-center rounded-full ${className}`}
     >
       {/* Moon in light theme, sun in dark theme. */}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="size-[1.15rem] dark:hidden" aria-hidden="true">

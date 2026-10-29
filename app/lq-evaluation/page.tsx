@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import Effects from "@/components/Effects";
+import Preloader from "@/components/Preloader";
+import ScrollToTop from "@/components/ScrollToTop";
 import SiteHeader from "@/components/lq/SiteHeader";
 import SiteFooter from "@/components/lq/SiteFooter";
 import MobileCtaBar from "@/components/lq/MobileCtaBar";
-import ScrollToTop from "@/components/ScrollToTop";
 import Hero from "@/components/lq/Hero";
 import RealQuestion from "@/components/lq/RealQuestion";
 import IntroducingLq from "@/components/lq/IntroducingLq";
@@ -16,6 +17,7 @@ import HowItWorks from "@/components/lq/HowItWorks";
 import BiggerPicture from "@/components/lq/BiggerPicture";
 import FinalCta from "@/components/lq/FinalCta";
 import Register from "@/components/lq/Register";
+import Assessment from "@/components/lq/Assessment";
 
 const DESCRIPTION =
   "Discover where your personal brand stands today with the complimentary LQ™ Snapshot. Understand your strengths, identify potential gaps and discover opportunities to strengthen your professional reputation.";
@@ -46,13 +48,15 @@ export default function LqEvaluationPage() {
         <HowItWorks />
         <BiggerPicture />
         <FinalCta />
+        <Assessment />
         <Register />
       </main>
       <SiteFooter />
       <MobileCtaBar />
-      <ScrollToTop />
       <Reveal />
       <Effects />
+      <Preloader />
+      <ScrollToTop />
     </>
   );
 }

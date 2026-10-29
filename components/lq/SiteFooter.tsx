@@ -1,4 +1,4 @@
-import { Corner, Cta, Logo } from "@/components/ui";
+import { Cta, Logo } from "@/components/ui";
 
 // Footer mirroring the live Level141 site; every link stays on this standalone page.
 const COLUMNS = [
@@ -27,13 +27,13 @@ const COLUMNS = [
 
 export default function SiteFooter() {
   return (
-    <footer aria-labelledby="footer-heading" className="relative isolate overflow-hidden bg-paper-2 p-2 sm:p-3 lg:p-4">
+    <footer aria-labelledby="footer-heading" className="relative isolate overflow-hidden bg-paper">
       <h2 id="footer-heading" className="sr-only">
         Site footer
       </h2>
 
-      <div data-reveal className="surface relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem]">
-        <div className="relative px-6 pb-8 pt-10 sm:px-12 sm:pb-10 sm:pt-14 lg:px-20 lg:pt-16">
+      <div data-reveal className="relative border-t border-line-strong">
+        <div className="container-x relative pb-10 pt-20 lg:pt-28">
           {/* Statement and call to action. */}
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <p className="headline text-[2.15rem] leading-[1.03] sm:text-5xl lg:col-span-8 lg:text-[3.6rem]">
@@ -41,15 +41,15 @@ export default function SiteFooter() {
             </p>
             <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
               <Cta label="Discover My LQ™ →" />
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Level141 — Growth By Design.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                Level141 — Growth By Design.
+              </p>
             </div>
           </div>
 
           {/* Divider held between two corner marks; the line draws in on reveal. */}
           <div aria-hidden="true" className="mt-12 flex items-center gap-4 sm:mt-14">
-            <Corner flip className="size-3.5 shrink-0 text-ink" />
             <span className="rule-draw h-px flex-1 bg-line" />
-            <Corner className="size-3.5 shrink-0 text-ink" />
           </div>
 
           <div className="mt-12 grid gap-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-12 lg:gap-8">
@@ -60,7 +60,7 @@ export default function SiteFooter() {
               <p className="mt-5 max-w-xs leading-relaxed text-muted">
                 Part of the 1XL ecosystem, headquartered in Dubai.
               </p>
-              <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-paper/50 px-3 py-1.5 text-sm">
+              <p className="mt-5 inline-flex items-center gap-2 text-sm">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-ink" />
                 Dubai
               </p>
@@ -72,7 +72,10 @@ export default function SiteFooter() {
                 <ul className="mt-4">
                   {col.links.map((l) => (
                     <li key={l.label}>
-                      <a href={l.href} className="group flex min-h-11 flex-col justify-center py-1.5 text-[1.02rem] leading-snug">
+                      <a
+                        href={l.href}
+                        className="group flex min-h-11 flex-col justify-center py-1.5 text-[1.02rem] leading-snug"
+                      >
                         {/* Underline grows from the left on hover, as on the live site. */}
                         <span className="w-fit bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 ease-[var(--ease-architect)] group-hover:bg-[length:100%_1px]">
                           {l.label}
@@ -86,7 +89,12 @@ export default function SiteFooter() {
             ))}
           </div>
 
-          <div className="mt-14 border-t border-line pt-6 text-sm text-muted">
+          {/* Oversized, faint wordmark: the complete official logo, scaled, never cropped or altered. */}
+          <div aria-hidden="true" data-reveal className="mt-16 lg:mt-24">
+            <Logo className="h-auto w-full opacity-[0.07]" />
+          </div>
+
+          <div className="mt-10 border-t border-line pt-6 text-sm text-muted">
             <p>© {new Date().getFullYear()} Level141. All rights reserved.</p>
           </div>
         </div>

@@ -149,13 +149,16 @@ export function Section({ id, labelledBy, tone = "paper", children, className = 
 /** Section label as on the live site: "02 —— Label", with the short rule drawing in on reveal. */
 export function SectionHead({ n, children }: { n: number; children: ReactNode }) {
   return (
-    <p data-reveal className="eyebrow flex items-center gap-3">
-      <span aria-hidden="true" className="tabular-nums">
-        {String(n).padStart(2, "0")}
-      </span>
-      <span aria-hidden="true" className="rule-draw h-px w-8 bg-current opacity-50" />
-      <span>{children}</span>
-    </p>
+    <div data-reveal className="relative w-full pt-6">
+      {/* Full-width hairline that draws in, with the label beneath it (editorial section opener). */}
+      <span aria-hidden="true" className="rule-draw absolute inset-x-0 top-0 h-px bg-line-strong" />
+      <p className="eyebrow flex items-center gap-3">
+        <span aria-hidden="true" className="tabular-nums text-muted">
+          {String(n).padStart(2, "0")}
+        </span>
+        <span>{children}</span>
+      </p>
+    </div>
   );
 }
 

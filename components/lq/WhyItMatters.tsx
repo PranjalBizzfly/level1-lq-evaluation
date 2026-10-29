@@ -1,5 +1,7 @@
 import { WHY_QUESTIONS } from "@/content/lq";
-import { Accent, Corner, Cta, Section, SectionHead, delay } from "@/components/ui";
+import { Accent, Cta, Section, SectionHead, delay } from "@/components/ui";
+import PhotoBand from "@/components/lq/PhotoBand";
+import walkCrowd from "@/public/images/walk-crowd.png";
 
 // SECTION 5 — WHY IT MATTERS
 export default function WhyItMatters() {
@@ -7,71 +9,54 @@ export default function WhyItMatters() {
     <Section id="why-it-matters" labelledBy="why-title" className="border-t border-line">
       <SectionHead n={5}>Why It Matters</SectionHead>
 
-      <div className="mt-8 grid gap-y-10 lg:grid-cols-12 lg:items-start lg:gap-x-16">
-        <div data-reveal className="lg:col-span-7">
-          <h2 id="why-title" className="headline text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[4rem]">
-            Your Reputation Should Work <Accent>Beyond Your Network</Accent>
-          </h2>
-        </div>
-        <div data-reveal className="space-y-6 lg:col-span-5 lg:pt-3">
-          <p className="text-lg sm:text-xl lg:text-2xl leading-[1.8] font-light text-muted">
+      <div className="mt-10 grid gap-y-10 lg:grid-cols-12 lg:gap-x-16">
+        <h2
+          id="why-title"
+          data-reveal
+          className="headline text-[2.5rem] leading-[1.08] sm:text-5xl lg:col-span-7 lg:text-[4.25rem] xl:text-[5.25rem]"
+        >
+          Your Reputation Should Work <Accent>Beyond Your Network</Accent>
+        </h2>
+        <div data-reveal className="space-y-5 lg:col-span-5 lg:pt-3">
+          <p className="text-lg leading-[1.8] text-muted">
             You may already have a strong business, an established network and a respected position.
           </p>
-          <p className="headline serif-accent text-2xl sm:text-3xl text-ink leading-snug">
-            But what happens beyond those circles?
-          </p>
+          <p className="serif-accent text-2xl">But what happens beyond those circles?</p>
         </div>
       </div>
 
-      {/* 2x2 Executive Strategic Matrix */}
-      <div className="mt-24 sm:mt-32 lg:mt-40">
-        <div data-reveal className="flex items-center justify-between pb-6 border-b border-line">
-          <p className="eyebrow text-ink/80">Strategic Perspectives</p>
-          <span className="text-xs font-mono text-muted tracking-widest uppercase hidden sm:inline-block">
-            Market Perception Audit
-          </span>
-        </div>
+      {/* Numbered columns, each opened by its own hairline (reference "process" pattern). */}
+      <ul className="mt-20 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
+        {WHY_QUESTIONS.map((q, i) => (
+          <li key={q} data-reveal style={delay(i)} className="border-t border-line-strong pt-6">
+            <span aria-hidden="true" className="text-sm tabular-nums text-muted">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <p className="mt-10 text-xl font-light leading-snug tracking-[-0.015em] sm:text-2xl">{q}</p>
+          </li>
+        ))}
+      </ul>
 
-        <ul className="mt-10 sm:mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 xl:gap-10">
-          {WHY_QUESTIONS.map((q, i) => (
-            <li
-              key={q}
-              data-reveal
-              style={delay(i)}
-              data-spotlight
-              className="surface card-interactive group relative rounded-3xl border border-line p-8 sm:p-10 min-h-[320px] flex flex-col justify-between gap-8 transition-all duration-300 hover:border-ink/50 shadow-sm"
-            >
-              <div className="flex items-center justify-between">
-                <span className="luxury-pill">
-                  Q.{String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="size-2 rounded-full bg-line-strong group-hover:bg-ink transition-colors" />
-              </div>
-              <p className="relative text-xl sm:text-2xl font-light leading-snug tracking-tight text-ink group-hover:translate-x-1 transition-transform duration-300">
-                {q}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Bottom Takeaway Anchor */}
-      <div
-        data-reveal
-        className="surface relative mt-24 sm:mt-36 lg:mt-44 rounded-[2.5rem] border border-line p-10 sm:p-16 lg:p-20 shadow-xl"
-      >
-        <Corner className="absolute -top-px -right-px size-8 text-ink/70 sm:size-10" />
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-16">
-          <p className="headline text-2xl sm:text-3xl lg:text-4xl text-ink lg:col-span-7 font-light leading-snug">
-            Your personal brand influences how people understand your value before they ever meet you
-          </p>
-          <div className="space-y-6 lg:col-span-5 lg:justify-self-end">
-            <p className="text-base sm:text-lg text-muted leading-relaxed">
-              LQ™ helps you understand where that perception stands today.
+      {/* The crowd image carries the takeaway: value is judged before anyone meets you. */}
+      <div className="mt-20 lg:mt-28">
+        <PhotoBand
+          src={walkCrowd}
+          alt="A businesswoman walking confidently through a busy conference hall"
+          className="min-h-[30rem] sm:min-h-[34rem] lg:min-h-[38rem]"
+          sizes="(min-width: 1440px) 82rem, 100vw"
+        >
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+            <p className="max-w-2xl text-2xl font-light leading-snug sm:text-3xl lg:text-4xl">
+              Your personal brand influences how people understand your value before they ever meet you
             </p>
-            <Cta label="Discover Where You Stand →" className="w-full sm:w-auto shadow-md" />
+            <div className="max-w-sm shrink-0 space-y-6">
+              <p className="text-lg leading-[1.8] text-white/80">
+                LQ™ helps you understand where that perception stands today.
+              </p>
+              <Cta label="Discover Where You Stand →" className="!bg-white !text-black hover:!bg-white/90" />
+            </div>
           </div>
-        </div>
+        </PhotoBand>
       </div>
     </Section>
   );

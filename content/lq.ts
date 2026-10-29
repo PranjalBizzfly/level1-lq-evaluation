@@ -1,7 +1,7 @@
 // Approved copy for the LQ™ Evaluation landing page.
 // Source of truth: "LQ Landing Page" client document. Do not edit wording here without client approval.
 
-export const CTA_TARGET = "#register";
+export const CTA_TARGET = "#assessment";
 
 export const VIBE = [
   {

@@ -9,7 +9,7 @@ export default function MobileCtaBar() {
 
   useEffect(() => {
     const hero = document.getElementById("top");
-    const targets = ["final-cta", "register"].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const targets = ["final-cta", "assessment", "register"].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
     if (!hero || !("IntersectionObserver" in window)) return;
 
     const state = { pastHero: false, nearForm: false };
@@ -36,16 +36,12 @@ export default function MobileCtaBar() {
   return (
     <div
       aria-hidden={!show}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/90 p-3.5 backdrop-blur-2xl shadow-[0_-12px_32px_-10px_color-mix(in_oklab,var(--color-ink)_16%,transparent)] transition-transform duration-500 sm:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper p-3.5 transition-transform duration-500 sm:hidden ${
         show ? "translate-y-0" : "pointer-events-none translate-y-full"
       }`}
       style={{ paddingBottom: "max(0.875rem, env(safe-area-inset-bottom))" }}
     >
-      <a
-        href="#register"
-        tabIndex={show ? 0 : -1}
-        className={`${BTN} ${BTN_ON_LIGHT} flex min-h-12 w-full px-6 shadow-md`}
-      >
+      <a href="#assessment" tabIndex={show ? 0 : -1} className={`${BTN} ${BTN_ON_LIGHT} flex min-h-12 w-full px-6`}>
         <span>Discover My LQ™</span>
         <Arrow />
       </a>

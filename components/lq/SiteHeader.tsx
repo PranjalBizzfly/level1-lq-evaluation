@@ -67,7 +67,7 @@ export default function SiteHeader() {
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           solid
             ? "border-b border-line bg-paper/85 shadow-[0_16px_40px_-20px_color-mix(in_oklab,var(--color-ink)_12%,transparent)] backdrop-blur-2xl backdrop-saturate-150"
-            : "border-b border-transparent bg-transparent"
+            : "border-b border-transparent bg-transparent text-white [--color-ink:#fff] [--color-paper:#000] [--color-paper-2:#000] [--color-line:#ffffff33] [--color-line-strong:#ffffff55] [--color-muted:#ffffffb3] [--glass-border:#ffffff2e]"
         }`}
       >
         <a
@@ -82,17 +82,17 @@ export default function SiteHeader() {
           }`}
         >
           <div className="flex items-center gap-4 xl:gap-6 shrink-0">
-            <a href="#top" aria-label="Level141 — Back to top" className="relative z-10 flex min-h-11 shrink-0 items-center transition-opacity hover:opacity-85">
+            <a
+              href="#top"
+              aria-label="Level141 — Back to top"
+              className="relative z-10 flex min-h-11 shrink-0 items-center transition-opacity hover:opacity-85"
+            >
               <Logo className="h-[1.2rem] w-auto sm:h-5" />
             </a>
-            <div className="hidden xl:flex items-center gap-2 pl-4 border-l border-line text-[0.68rem] tracking-[0.2em] uppercase font-medium text-muted">
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
-              <span>Complimentary LQ™ Evaluation Open</span>
-            </div>
           </div>
 
           <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-0.5 xl:gap-2 rounded-full border border-line/60 bg-paper/50 px-2 py-1 xl:px-3 xl:py-1.5 shadow-xs backdrop-blur-md">
+            <ul className="flex items-center gap-1 xl:gap-4">
               {PRIMARY_NAV.map((n) => (
                 <li key={n.href}>
                   <a
@@ -108,7 +108,7 @@ export default function SiteHeader() {
 
           <div className="relative z-10 flex shrink-0 items-center gap-2 xl:gap-3">
             <a
-              href="#register"
+              href="#assessment"
               data-magnetic
               className={`${BTN} ${BTN_ON_LIGHT} hidden h-11 px-4 xl:px-5 shadow-sm transition-all duration-300 hover:shadow-md sm:inline-flex shrink-0 whitespace-nowrap`}
             >
@@ -125,7 +125,15 @@ export default function SiteHeader() {
               onClick={() => setOpen((o) => !o)}
               className="glass grid size-11 place-items-center rounded-full transition-transform duration-200 active:scale-90 lg:hidden"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="size-5" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="size-5"
+                aria-hidden="true"
+              >
                 {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
               </svg>
             </button>
@@ -146,7 +154,11 @@ export default function SiteHeader() {
           <ul className="divide-y divide-line border-y border-line">
             {PRIMARY_NAV.map((n, i) => (
               <li key={n.href} className="animate-rise" style={{ animationDelay: `${i * 40}ms` }}>
-                <a href={n.href} onClick={() => setOpen(false)} className="flex items-center justify-between py-4 text-2xl font-light tracking-[-0.02em]">
+                <a
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-between py-4 text-2xl font-light tracking-[-0.02em]"
+                >
                   {n.label}
                   <Arrow className="text-ink" />
                 </a>
@@ -154,7 +166,7 @@ export default function SiteHeader() {
             ))}
           </ul>
           <a
-            href="#register"
+            href="#assessment"
             onClick={() => setOpen(false)}
             className={`${BTN} ${BTN_ON_LIGHT} inline-flex min-h-14 px-6`}
           >

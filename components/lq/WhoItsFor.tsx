@@ -11,7 +11,7 @@ export default function WhoItsFor() {
         {/* Heading stays in view while the audiences scroll past. */}
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <SectionHead n={7}>Who Is It For?</SectionHead>
+            <SectionHead>Who Is It For?</SectionHead>
             <h2
               id="who-title"
               data-reveal

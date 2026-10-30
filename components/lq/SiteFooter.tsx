@@ -40,7 +40,7 @@ export default function SiteFooter() {
               Growth Architecture For <span className="serif-accent">People &amp; Organizations</span>
             </p>
             <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
-              <Cta label="Discover My LQ™ →" />
+              <Cta variant="link" label="Discover My LQ™ →" />
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
                 Level141 — Growth By Design.
               </p>

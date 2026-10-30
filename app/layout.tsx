@@ -23,11 +23,16 @@ export const viewport: Viewport = {
   ],
 };
 
-const THEME_SCRIPT = `(function(){var d=document.documentElement;d.classList.add('js');var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t})()`;
+const THEME_SCRIPT = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('lq-intro'))d.classList.add('intro-seen')}catch(e){}var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t})()`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..500&display=swap" />
+      </head>
       <body>
         {/* Enables scroll-reveal styles and applies the saved or system theme before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />

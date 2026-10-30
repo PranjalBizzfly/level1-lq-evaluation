@@ -7,7 +7,7 @@ import walkCrowd from "@/public/images/walk-crowd.png";
 export default function WhyItMatters() {
   return (
     <Section id="why-it-matters" labelledBy="why-title" className="border-t border-line">
-      <SectionHead n={5}>Why It Matters</SectionHead>
+      <SectionHead>Why It Matters</SectionHead>
 
       <div className="mt-10 grid gap-y-10 lg:grid-cols-12 lg:gap-x-16">
         <h2

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import Effects from "@/components/Effects";
 import Preloader from "@/components/Preloader";
-import ScrollToTop from "@/components/ScrollToTop";
 import SiteHeader from "@/components/lq/SiteHeader";
 import SiteFooter from "@/components/lq/SiteFooter";
 import MobileCtaBar from "@/components/lq/MobileCtaBar";
@@ -23,6 +22,7 @@ const DESCRIPTION =
   "Discover where your personal brand stands today with the complimentary LQ™ Snapshot. Understand your strengths, identify potential gaps and discover opportunities to strengthen your professional reputation.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://level1-lq-evaluation.vercel.app"),
   title: "The Level Quotient™ Evaluation",
   description: DESCRIPTION,
   openGraph: {
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     description: "You've Built Your Success. Does Your Personal Brand Reflect It?",
     type: "website",
     siteName: "Level141",
+    images: ["/images/hero-skyline.png"],
   },
 };
 
@@ -56,7 +57,6 @@ export default function LqEvaluationPage() {
       <Reveal />
       <Effects />
       <Preloader />
-      <ScrollToTop />
     </>
   );
 }

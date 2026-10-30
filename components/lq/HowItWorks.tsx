@@ -7,7 +7,7 @@ import study from "@/public/images/study.png";
 export default function HowItWorks() {
   return (
     <Section id="how-it-works" labelledBy="how-title" className="border-t border-line">
-      <SectionHead n={8}>How It Works</SectionHead>
+      <SectionHead>How It Works</SectionHead>
 
       <div className="mt-10 grid items-end gap-12 lg:grid-cols-12 lg:gap-x-16">
         <h2
@@ -46,7 +46,7 @@ export default function HowItWorks() {
       </ol>
 
       <div data-reveal className="mt-20 lg:mt-24">
-        <Cta label="Start My LQ™ Evaluation →" />
+        <Cta variant="link" label="Start My LQ™ Evaluation →" />
       </div>
     </Section>
   );

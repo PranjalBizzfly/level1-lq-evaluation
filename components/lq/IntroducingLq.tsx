@@ -1,11 +1,10 @@
 import { Accent, Cta, Section, SectionHead } from "@/components/ui";
-import VibeDiagram from "@/components/lq/VibeDiagram";
 
 // SECTION 3 — INTRODUCING LQ™
 export default function IntroducingLq() {
   return (
     <Section id="introducing-lq" labelledBy="intro-title" className="border-t border-line">
-      <SectionHead n={3}>Introducing LQ™</SectionHead>
+      <SectionHead>Introducing LQ™</SectionHead>
 
       {/* Statement: big heading, then a lede and supporting paragraph offset to the right. */}
       <h2
@@ -29,27 +28,23 @@ export default function IntroducingLq() {
         </div>
       </div>
 
-      {/* The framework, then the remaining copy beside it. */}
-      <div className="mt-24 grid items-center gap-16 lg:mt-32 lg:grid-cols-12 lg:gap-x-16">
-        <div data-reveal className="lg:col-span-5">
-          <VibeDiagram />
-        </div>
-        <div data-reveal className="max-w-xl space-y-6 lg:col-span-6 lg:col-start-7">
-          <p className="text-xl leading-[1.6] text-ink sm:text-2xl">
-            LQ™ looks beyond your job title, number of followers or social media activity.
-          </p>
-          <p className="text-lg leading-[1.8] text-muted">
-            It evaluates the strength of your personal brand across the areas that matter to your leadership journey.
-          </p>
-        </div>
+      {/* What LQ™ looks beyond; VIBE™ itself is explained in the next section. */}
+      <div data-reveal className="mx-auto mt-24 max-w-2xl text-center lg:mt-32">
+        <p className="text-xl leading-[1.6] text-ink sm:text-2xl">
+          LQ™ looks beyond your job title, number of followers or social media activity.
+        </p>
+        <p className="mt-5 text-lg leading-[1.8] text-muted">
+          It evaluates the strength of your personal brand across the areas that matter to your leadership journey.
+        </p>
       </div>
 
-      <div data-reveal className="mt-24 border-t border-line-strong pt-14 lg:mt-32">
-        <p className="serif-accent text-ink max-w-3xl text-3xl leading-snug sm:text-4xl">
+      {/* A pause: one sentence alone on the page. */}
+      <div data-reveal className="mx-auto mt-40 max-w-4xl text-center lg:mt-60">
+        <p className="serif-accent text-ink text-4xl leading-[1.15] sm:text-5xl lg:text-6xl">
           Because success and recognition are not always the same thing
         </p>
-        <div className="mt-10">
-          <Cta label="Discover Your LQ™ →" />
+        <div className="mt-12 flex justify-center">
+          <Cta variant="link" label="Discover Your LQ™ →" />
         </div>
       </div>
     </Section>

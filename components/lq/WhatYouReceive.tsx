@@ -1,13 +1,12 @@
 import { DELIVERABLES } from "@/content/lq";
 import { Accent, Cta, Section, SectionHead } from "@/components/ui";
-import Accordion from "@/components/lq/Accordion";
 
 // SECTION 6 — WHAT YOU RECEIVE
-// Reference "disciplines" pattern: heading left with a short note, numbered accordion offset right.
+// Heading left with a short note, then every deliverable in plain view, offset right.
 export default function WhatYouReceive() {
   return (
     <Section id="what-you-receive" labelledBy="receive-title" className="border-t border-line">
-      <SectionHead n={6}>What You Receive</SectionHead>
+      <SectionHead>What You Receive</SectionHead>
 
       <div className="mt-16 grid gap-y-10 lg:mt-20 lg:grid-cols-12 lg:gap-x-16">
         <h2
@@ -23,18 +22,18 @@ export default function WhatYouReceive() {
       </div>
 
       <div className="mt-20 lg:ml-[33.333%] lg:mt-28">
-        <Accordion
-          idPrefix="receive"
-          items={DELIVERABLES.map((d) => ({
-            key: d.title,
-            title: "emphasis" in d && d.emphasis ? <span className="serif-accent">{d.title}</span> : d.title,
-            body: <p className={"emphasis" in d && d.emphasis ? "text-ink" : ""}>{d.body}</p>,
-          }))}
-        />
+        <ul className="border-b border-line">
+          {DELIVERABLES.map((d) => (
+            <li key={d.title} data-reveal className="border-t border-line py-8 lg:py-10">
+              <h3 className="text-2xl font-light tracking-[-0.02em] sm:text-3xl">{d.title}</h3>
+              <p className="mt-3 max-w-xl text-lg leading-[1.8] text-muted">{d.body}</p>
+            </li>
+          ))}
+        </ul>
 
         <div data-reveal className="mt-16 flex flex-col gap-8 lg:mt-20">
           <div>
-            <Cta label="Get My Complimentary LQ™ Snapshot →" />
+            <Cta variant="link" label="Get My Complimentary LQ™ Snapshot →" />
           </div>
           <p className="max-w-xl text-sm italic leading-[1.8] text-muted">
             Your LQ™ Snapshot is an initial self-reported assessment. A comprehensive evaluation involves deeper

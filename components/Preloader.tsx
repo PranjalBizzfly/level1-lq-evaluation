@@ -14,7 +14,12 @@ export default function Preloader() {
 
   // Intro counter.
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let seen = false;
+    try {
+      seen = Boolean(sessionStorage.getItem("lq-intro"));
+      sessionStorage.setItem("lq-intro", "1");
+    } catch {}
+    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setPhase("done");
       return;
     }

@@ -64,7 +64,7 @@ type CtaProps = {
   href?: string;
   /** Surface the button sits on. */
   tone?: "light" | "dark";
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "link";
   className?: string;
 };
 
@@ -87,6 +87,14 @@ const CTA_STYLES = {
 
 /** Pill CTA matching the live site, with a magnetic pull toward the cursor. A trailing "→" becomes an animated arrow. */
 export function Cta({ label, href = CTA_TARGET, tone = "light", variant = "primary", className = "" }: CtaProps) {
+  if (variant === "link") {
+    return (
+      <a href={href} className={`group inline-flex min-h-11 items-center gap-3 border-b border-current text-sm ${className}`}>
+        <span>{label.replace(/\s*→$/, "")}</span>
+        <Arrow />
+      </a>
+    );
+  }
   return (
     <a
       href={href}
@@ -146,18 +154,12 @@ export function Section({ id, labelledBy, tone = "paper", children, className = 
   );
 }
 
-/** Section label as on the live site: "02 —— Label", with the short rule drawing in on reveal. */
-export function SectionHead({ n, children }: { n: number; children: ReactNode }) {
+/** Section label beneath a full-width hairline that draws in on reveal. */
+export function SectionHead({ children }: { children: ReactNode }) {
   return (
     <div data-reveal className="relative w-full pt-6">
-      {/* Full-width hairline that draws in, with the label beneath it (editorial section opener). */}
       <span aria-hidden="true" className="rule-draw absolute inset-x-0 top-0 h-px bg-line-strong" />
-      <p className="eyebrow flex items-center gap-3">
-        <span aria-hidden="true" className="tabular-nums text-muted">
-          {String(n).padStart(2, "0")}
-        </span>
-        <span>{children}</span>
-      </p>
+      <p className="eyebrow">{children}</p>
     </div>
   );
 }

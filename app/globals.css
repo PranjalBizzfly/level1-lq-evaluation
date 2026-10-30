@@ -39,12 +39,12 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --color-ink: #fff;
+  --color-ink: #f4f2ed;
   --color-ink-2: #ededed;
   --color-ink-3: #d4d4d4;
   --color-paper: #000;
   --color-paper-2: #0f0f0f;
-  --color-muted: #a8a8a8;
+  --color-muted: #b5b2ab;
   --color-muted-dark: #595959;
   --color-surface: #1a1a1a;
   --color-line: #ffffff29;
@@ -679,6 +679,135 @@ footer img {
 .display .serif-accent {
   color: var(--color-muted);
   letter-spacing: -0.01em;
+}
+
+/* On photographs (hero, photo bands) the accent must stay light in every theme. */
+#top .serif-accent,
+.photo-band .serif-accent {
+  color: rgb(255 255 255 / 0.78) !important;
+}
+
+/* Level141 live-site refinements: light headings at its scale, airy body copy. */
+.headline,
+.display {
+  font-weight: 300 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.03 !important;
+}
+
+@media (min-width: 1024px) {
+  main section:not(#top) h2.headline {
+    font-size: 3.75rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  main section:not(#top) h2.headline {
+    font-size: 4.75rem !important;
+  }
+}
+
+main p[class*="leading-[1.8"],
+main p[class*="leading-[1.85"],
+main [class*="leading-[1.8"] > p {
+  line-height: 1.8 !important;
+}
+
+/* No lone words on last lines. */
+h1,
+h2,
+h3,
+blockquote {
+  text-wrap: balance;
+}
+
+main p {
+  text-wrap: pretty;
+}
+
+/* Intro already seen this visit. */
+.intro-seen .preloader {
+  display: none !important;
+}
+
+/* Exact typography of the live Level141 site, measured at 390 / 1024 / 1440px. */
+:root {
+  --font-sans: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-sans);
+}
+
+body {
+  font-family: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: -0.005em;
+}
+
+.headline,
+.display {
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.06 !important;
+}
+
+main h1.headline {
+  font-size: clamp(44px, 33.5px + 2.7vw, 68px) !important;
+}
+
+main section h2.headline,
+main section:not(#top) h2.headline,
+footer p.headline {
+  font-size: clamp(32px, 25.3px + 1.716vw, 48px) !important;
+}
+
+.serif-accent,
+.headline .serif-accent,
+.display .serif-accent,
+#top .serif-accent,
+.photo-band .serif-accent {
+  font-family: inherit !important;
+  font-style: normal !important;
+  font-weight: inherit;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+}
+
+.eyebrow {
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.22em !important;
+}
+
+main p.text-lg,
+main [class*="text-lg"] > p {
+  font-size: 1.125rem;
+  line-height: 1.85 !important;
+  letter-spacing: -0.005em;
+}
+
+/* Premium section rhythm: open text sections alternate with edge-to-edge, full-height image sections. */
+#why-it-matters .photo-mask:has(.photo-band),
+#the-bigger-picture .photo-mask:has(.photo-band) {
+  width: 100vw;
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
+  min-height: 100svh;
+}
+
+#why-it-matters .photo-band > *,
+#the-bigger-picture .photo-band > * {
+  max-width: 88rem;
+  margin-inline: auto;
+}
+
+/* The image closes the section, running straight into the next one. */
+#why-it-matters {
+  padding-bottom: 0 !important;
+}
+
+/* Generous, identical breathing room around every open section. */
+main > section:not(#top):not(#final-cta):not(#why-it-matters) {
+  padding-block: clamp(7rem, 12vw, 11rem);
 }
 
 /* Brand intro and section curtain (Preloader.tsx). Hidden without JS so content is never blocked. */

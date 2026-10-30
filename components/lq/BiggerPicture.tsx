@@ -7,7 +7,7 @@ import horizon from "@/public/images/horizon.png";
 export default function BiggerPicture() {
   return (
     <Section id="the-bigger-picture" labelledBy="bigger-title" className="border-t border-line">
-      <SectionHead n={9}>The Bigger Picture</SectionHead>
+      <SectionHead>The Bigger Picture</SectionHead>
 
       {/* The horizon carries the message: starting point, not destination. */}
       <div className="mt-10">
@@ -79,7 +79,7 @@ export default function BiggerPicture() {
       </ol>
 
       <div data-reveal className="mt-20 lg:mt-28">
-        <Cta label="Start With My Complimentary LQ™ Evaluation →" />
+        <Cta variant="link" label="Start With My Complimentary LQ™ Evaluation →" />
       </div>
     </Section>
   );
